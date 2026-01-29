@@ -572,6 +572,10 @@ nav ul li a:hover::after {
     z-index: 10;
 }
 
+.about-section > .container > .about-card {
+    margin-top: 40px;
+}
+
 .mission-vision {
     display: grid;
     grid-template-columns: 1fr 1fr;
