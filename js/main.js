@@ -1,9 +1,14 @@
-// Mobile Navigation Toggle
+// ═══════════════════════════════════════════════════════════════════
+// TECNOT - Main JavaScript
+// Minimal, functional interactions
+// ═══════════════════════════════════════════════════════════════════
+
+// Mobile Navigation
 function toggleMobileMenu() {
     const nav = document.getElementById('nav');
     const overlay = document.getElementById('overlay');
     const icon = document.getElementById('mobileToggle').querySelector('i');
-    
+
     if (nav.classList.contains('active')) {
         closeMobileMenu();
     } else {
@@ -11,7 +16,6 @@ function toggleMobileMenu() {
         overlay.classList.add('active');
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
-        // Prevent body scroll when menu is open
         document.body.style.overflow = 'hidden';
     }
 }
@@ -20,152 +24,211 @@ function closeMobileMenu() {
     const nav = document.getElementById('nav');
     const overlay = document.getElementById('overlay');
     const icon = document.getElementById('mobileToggle').querySelector('i');
-    
+
     nav.classList.remove('active');
     overlay.classList.remove('active');
     icon.classList.remove('fa-times');
     icon.classList.add('fa-bars');
-    // Re-enable body scroll
     document.body.style.overflow = '';
 }
 
-// Initialize everything when DOM is loaded
+// Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    // Create overlay element for mobile menu
+    // Create overlay for mobile menu
     const overlay = document.createElement('div');
+    overlay.className = 'overlay';
     overlay.id = 'overlay';
     document.body.appendChild(overlay);
-    
-    // Set up mobile menu toggle
+
+    // Mobile menu toggle
     const mobileToggle = document.getElementById('mobileToggle');
     if (mobileToggle) {
         mobileToggle.addEventListener('click', toggleMobileMenu);
     }
-    
-    // Close mobile menu when clicking overlay
+
+    // Close menu on overlay click
     overlay.addEventListener('click', closeMobileMenu);
-    
-    // Close mobile menu when clicking a link
+
+    // Close menu on link click (mobile)
     document.querySelectorAll('#nav a').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
                 closeMobileMenu();
             }
         });
     });
-    
-    // Sticky Header
-    function handleScroll() {
-        const header = document.getElementById('header');
-        if (window.scrollY > 100) {
-            header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
-            header.style.background = 'rgba(255, 255, 255, 0.99)';
-        } else {
-            header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-            header.style.background = 'rgba(255, 255, 255, 0.97)';
-        }
-    }
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    // Form Validation and Submission
+
+    // Contact form handling
     const form = document.getElementById('contactForm');
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            
+
             if (name && email && message) {
-                // Show success message
                 const successMsg = document.getElementById('successMessage');
                 if (successMsg) {
                     successMsg.classList.add('show');
-                    
-                    // Hide message after 3 seconds
+
                     setTimeout(() => {
                         successMsg.classList.remove('show');
                     }, 3000);
-                    
-                    // Reset form
+
                     this.reset();
                 }
-            } else {
-                alert('Please fill in all fields.');
             }
         });
     }
-    
-    // Animation on scroll
+
+    // Scroll-triggered animations
     if ('IntersectionObserver' in window) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-        
-        // Observe elements with animation classes
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Pause animations until in view
         document.querySelectorAll('.feature-card, .team-member, .about-card, .step, .reason').forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
     }
-    
-    // Handle resize to close menu
+
+    // Handle window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
             closeMobileMenu();
         }
     });
 
-    // Cursor tracking in mockup box
-    const mockupBox = document.getElementById('mockupBox');
-    const cursorRing = document.getElementById('cursorRing');
-    const cursorTrail = document.getElementById('cursorTrail');
-    let trailX = 0, trailY = 0;
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-    if (mockupBox && cursorRing && cursorTrail) {
-        // Show cursor when entering
-        mockupBox.addEventListener('mouseenter', function() {
-            cursorRing.classList.add('active');
-            cursorTrail.classList.add('active');
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════
+    // 3D Cards Carousel
+    // ═══════════════════════════════════════════════════════════════════
+    const carousel = document.getElementById('cardsCarousel');
+    const caption = document.getElementById('carouselCaption');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    if (carousel && caption && prevBtn && nextBtn) {
+        const cards = carousel.querySelectorAll('.carousel-card');
+        const positions = ['far-left', 'left', 'center', 'right', 'far-right'];
+        let currentIndex = 0;
+        let autoPlayInterval;
+
+        // Initialize card positions
+        function updatePositions() {
+            cards.forEach((card, index) => {
+                // Calculate position relative to current index
+                let posIndex = index - currentIndex;
+
+                // Wrap around for infinite loop effect
+                if (posIndex < -2) posIndex += cards.length;
+                if (posIndex > 2) posIndex -= cards.length;
+
+                // Map to position names
+                const posName = positions[posIndex + 2] || 'far-right';
+                card.setAttribute('data-position', posName);
+            });
+
+            // Update caption
+            const centerCard = cards[currentIndex];
+            if (centerCard) {
+                caption.style.opacity = '0';
+                setTimeout(() => {
+                    caption.textContent = centerCard.getAttribute('data-caption');
+                    caption.style.opacity = '1';
+                }, 150);
+            }
+        }
+
+        // Navigate to next slide
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updatePositions();
+        }
+
+        // Navigate to previous slide
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            updatePositions();
+        }
+
+        // Start auto-play
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        // Stop auto-play
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            nextSlide();
+            startAutoPlay();
         });
 
-        // Hide cursor when leaving
-        mockupBox.addEventListener('mouseleave', function() {
-            cursorRing.classList.remove('active');
-            cursorTrail.classList.remove('active');
+        prevBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            prevSlide();
+            startAutoPlay();
         });
 
-        // Move cursor with mouse
-        mockupBox.addEventListener('mousemove', function(e) {
-            const rect = mockupBox.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Main cursor follows immediately
-            cursorRing.style.left = x + 'px';
-            cursorRing.style.top = y + 'px';
-
-            // Trail follows with smooth easing
-            trailX += (x - trailX) * 0.2;
-            trailY += (y - trailY) * 0.2;
-
-            cursorTrail.style.left = trailX + 'px';
-            cursorTrail.style.top = trailY + 'px';
+        // Click on side cards to navigate
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                const position = card.getAttribute('data-position');
+                if (position === 'left') {
+                    stopAutoPlay();
+                    prevSlide();
+                    startAutoPlay();
+                } else if (position === 'right') {
+                    stopAutoPlay();
+                    nextSlide();
+                    startAutoPlay();
+                }
+            });
         });
+
+        // Pause on hover
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+
+        // Initialize
+        updatePositions();
+        startAutoPlay();
     }
 });

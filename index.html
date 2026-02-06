@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tecnot - AI-Powered Clinical Scribe</title>
+    <meta name="description" content="AI-powered clinical documentation for Sri Lankan healthcare professionals. Convert speech to structured SOAP notes instantly.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header id="header">
         <div class="container header-container">
             <a href="index.html" class="logo">
-                <img src="logo.png" alt="Tecnot Logo" class="logo-img">
+                <img src="logo.png" alt="Tecnot" class="logo-img">
             </a>
             <div class="mobile-toggle" id="mobileToggle">
                 <i class="fas fa-bars"></i>
@@ -24,8 +24,8 @@
                 <ul>
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#features">What We Offer</a></li>
-                    <li><a href="#team">Meet Our Team</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#team">Team</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -36,17 +36,177 @@
     <section id="hero" class="hero">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1><span class="gradient-text">Tecnot</span>: <span class="gradient-text">Revolutionizing</span> Clinical Documentation</h1>
-                <h2>AI-Powered Clinical Scribe for Modern Healthcare</h2>
-                <p>Tecnot helps Sri Lankan clinicians generate accurate SOAP notes from speech using Whisper and Mistral AI, saving valuable time and reducing documentation errors.</p>
-                <a href="#contact" class="btn">Get Started</a>
-            </div>
-            <div class="hero-mockup" id="mockupBox">
-                <img src="login-mockup.png" alt="Tecnot Login Interface" class="login-mockup">
-                <div class="cursor-ring" id="cursorRing">
-                    <div class="cursor-dot"></div>
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    <span>AI-Powered Healthcare</span>
                 </div>
-                <div class="cursor-trail" id="cursorTrail"></div>
+                <h1><span class="accent">Clinical documentation</span> that works as fast as you do</h1>
+                <p class="hero-subtitle">Tecnot helps Sri Lankan clinicians generate accurate SOAP notes from speech using Whisper and Mistral AI, saving valuable time and reducing documentation errors.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn">
+                        <span>Get Started</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <span>Learn More</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-mockup">
+                <div class="carousel-wrapper">
+                    <div class="cards-carousel" id="cardsCarousel">
+                        <!-- Card 1: Voice Recording -->
+                        <div class="carousel-card" data-caption="Speak naturally. Tecnot transcribes your clinical notes in real-time.">
+                            <div class="card-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots"><span></span><span></span><span></span></div>
+                                    <span class="screen-title">Recording</span>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="mic-icon"><i class="fas fa-microphone"></i></div>
+                                    <div class="waveform-anim">
+                                        <span></span><span></span><span></span><span></span><span></span>
+                                        <span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="rec-time-display">02:34</div>
+                                    <button class="start-btn">Stop Recording</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: SOAP Note Generation -->
+                        <div class="carousel-card" data-caption="Automatic SOAP notes. Structured documentation in seconds.">
+                            <div class="card-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots"><span></span><span></span><span></span></div>
+                                    <span class="screen-title">SOAP Note</span>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="soap-gen">
+                                        <div class="soap-row">
+                                            <div class="soap-tag-sm">S</div>
+                                            <div class="soap-text-content">Patient reports chest pain for 2 days, worse with exertion...</div>
+                                        </div>
+                                        <div class="soap-row">
+                                            <div class="soap-tag-sm">O</div>
+                                            <div class="soap-text-content">BP 140/90, HR 88, Temp 37.2°C, lung sounds clear...</div>
+                                        </div>
+                                        <div class="soap-row">
+                                            <div class="soap-tag-sm">A</div>
+                                            <div class="soap-text-content">Suspected angina pectoris, rule out acute MI...</div>
+                                        </div>
+                                        <div class="soap-row">
+                                            <div class="soap-tag-sm">P</div>
+                                            <div class="soap-text-content">ECG, cardiac enzymes, refer cardiology if needed...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Patient History -->
+                        <div class="carousel-card" data-caption="All patient records organized. Access history instantly.">
+                            <div class="card-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots"><span></span><span></span><span></span></div>
+                                    <span class="screen-title">Patient Records</span>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="patient-cards">
+                                        <div class="patient-row">
+                                            <div class="patient-av"><i class="fas fa-user"></i></div>
+                                            <div class="patient-det">
+                                                <span class="p-name">Kumara Perera</span>
+                                                <span class="p-info">Last visit: 2 days ago</span>
+                                            </div>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                        <div class="patient-row">
+                                            <div class="patient-av"><i class="fas fa-user"></i></div>
+                                            <div class="patient-det">
+                                                <span class="p-name">Nimal Silva</span>
+                                                <span class="p-info">Last visit: 1 week ago</span>
+                                            </div>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                        <div class="patient-row">
+                                            <div class="patient-av"><i class="fas fa-user"></i></div>
+                                            <div class="patient-det">
+                                                <span class="p-name">Malini Fernando</span>
+                                                <span class="p-info">Last visit: 3 weeks ago</span>
+                                            </div>
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Multi-language -->
+                        <div class="carousel-card" data-caption="Multi-language support. English, Sinhala, and Tamil.">
+                            <div class="card-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots"><span></span><span></span><span></span></div>
+                                    <span class="screen-title">Languages</span>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="lang-select">
+                                        <div class="lang-option active">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>English</span>
+                                        </div>
+                                        <div class="lang-option">
+                                            <i class="far fa-circle"></i>
+                                            <span>සිංහල (Sinhala)</span>
+                                        </div>
+                                        <div class="lang-option">
+                                            <i class="far fa-circle"></i>
+                                            <span>தமிழ் (Tamil)</span>
+                                        </div>
+                                    </div>
+                                    <div class="lang-preview">
+                                        <span class="lang-label">Preview:</span>
+                                        <p>"Patient reports mild fever and headache for three days..."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Cloud Sync -->
+                        <div class="carousel-card" data-caption="Secure cloud storage. Access your notes anywhere, anytime.">
+                            <div class="card-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots"><span></span><span></span><span></span></div>
+                                    <span class="screen-title">Cloud Sync</span>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="cloud-visual">
+                                        <div class="cloud-icon"><i class="fas fa-cloud"></i></div>
+                                        <div class="sync-status">
+                                            <div class="sync-bar"></div>
+                                        </div>
+                                        <span class="sync-text">All notes synced</span>
+                                    </div>
+                                    <div class="security-badges">
+                                        <div class="sec-badge"><i class="fas fa-lock"></i> Encrypted</div>
+                                        <div class="sec-badge"><i class="fas fa-shield-alt"></i> HIPAA</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Caption -->
+                    <div class="carousel-caption" id="carouselCaption">
+                        Speak naturally. Tecnot transcribes your clinical notes in real-time.
+                    </div>
+
+                    <!-- Navigation Arrows -->
+                    <div class="carousel-nav">
+                        <button class="nav-arrow prev" id="prevBtn"><i class="fas fa-arrow-left"></i></button>
+                        <button class="nav-arrow next" id="nextBtn"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -54,32 +214,50 @@
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="container">
-            <h2 class="section-title">About Tecnot</h2>
+            <div class="section-header">
+                <h2 class="section-title">About Tecnot</h2>
+                <p class="section-subtitle">Revolutionizing clinical documentation through AI innovation</p>
+            </div>
 
             <div class="about-content">
                 <div class="about-card">
-                    <h3>About Tecnot</h3>
+                    <h3>
+                        <i class="fas fa-info-circle"></i>
+                        About Tecnot
+                    </h3>
                     <p>Tecnot is a university SDGP project developed to improve the workflow of healthcare professionals by automating clinical note-taking. The app converts voice into structured SOAP notes in real-time, ensuring speed, accuracy, and convenience.</p>
                     <p>Developed by a team of passionate computer science students at the University of Moratuwa, Tecnot aims to solve the documentation challenges faced by Sri Lankan clinicians through innovative AI technology.</p>
                 </div>
             </div>
 
             <div class="about-card">
-                <h3>Mission & Vision</h3>
+                <h3>
+                    <i class="fas fa-bullseye"></i>
+                    Mission & Vision
+                </h3>
                 <div class="mission-vision">
                     <div class="mission">
-                        <h4>Mission</h4>
+                        <h4>
+                            <i class="fas fa-rocket"></i>
+                            Mission
+                        </h4>
                         <p>To simplify clinical documentation and save clinicians valuable time through AI automation, allowing them to focus on patient care rather than paperwork.</p>
                     </div>
                     <div class="vision">
-                        <h4>Vision</h4>
-                        <p>To become Sri Lanka’s leading AI-powered medical documentation assistant with multilingual support, revolutionizing healthcare workflows across the nation.</p>
+                        <h4>
+                            <i class="fas fa-eye"></i>
+                            Vision
+                        </h4>
+                        <p>To become Sri Lanka's leading AI-powered medical documentation assistant with multilingual support, revolutionizing healthcare workflows across the nation.</p>
                     </div>
                 </div>
             </div>
 
             <div class="about-card">
-                <h3>Why Choose Us</h3>
+                <h3>
+                    <i class="fas fa-check-double"></i>
+                    Why Choose Us
+                </h3>
                 <div class="reasons">
                     <div class="reason">
                         <i class="fas fa-check-circle"></i>
@@ -109,7 +287,10 @@
             </div>
 
             <div class="about-card">
-                <h3>How It Works</h3>
+                <h3>
+                    <i class="fas fa-cogs"></i>
+                    How It Works
+                </h3>
                 <div class="steps-container">
                     <div class="step">
                         <div class="step-number">1</div>
@@ -151,7 +332,10 @@
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">What We Offer</h2>
+            <div class="section-header">
+                <h2 class="section-title">What We Offer</h2>
+                <p class="section-subtitle">Powerful features designed for modern healthcare professionals</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -179,7 +363,7 @@
                         <i class="fas fa-language"></i>
                     </div>
                     <h3>Multi-language Support</h3>
-                    <p>English → Sinhala → Tamil roadmap tailored for Sri Lankan healthcare professionals.</p>
+                    <p>English, Sinhala, and Tamil roadmap tailored for Sri Lankan healthcare professionals.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -195,11 +379,14 @@
     <!-- Team Section -->
     <section id="team" class="team-section">
         <div class="container">
-            <h2 class="section-title">Meet Our Team</h2>
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">The passionate minds behind Tecnot</p>
+            </div>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="ibrahim.jpg" alt="Ibrahim">
+                        <img src="ibrahim.jpg" alt="Ibrahim Sharaff">
                     </div>
                     <h4>Ibrahim Sharaff</h4>
                     <p>Co-Founder</p>
@@ -207,7 +394,7 @@
                 </div>
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="shiman.jpg" alt="Shiman">
+                        <img src="shiman.jpg" alt="Shiman Nafaas">
                     </div>
                     <h4>Shiman Nafaas</h4>
                     <p>Co-Founder</p>
@@ -215,7 +402,7 @@
                 </div>
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="malik.png" alt="Malik">
+                        <img src="malik.png" alt="Malik Hanaffi">
                     </div>
                     <h4>Malik Hanaffi</h4>
                     <p>Co-Founder</p>
@@ -223,7 +410,7 @@
                 </div>
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="akiff.jpg" alt="akiff">
+                        <img src="akiff.jpg" alt="Akiff Ahamed">
                     </div>
                     <h4>Akiff Ahamed</h4>
                     <p>Co-Founder</p>
@@ -231,15 +418,15 @@
                 </div>
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="team/saman.jpg" alt="prajith">
+                        <img src="team/saman.jpg" alt="Alfred Prajith">
                     </div>
-                    <h4>Alfred Prajith </h4>
+                    <h4>Alfred Prajith</h4>
                     <p>Co-Founder</p>
                     <p>Back-End Lead</p>
                 </div>
                 <div class="team-member">
                     <div class="avatar">
-                        <img src="team/yasmin.jpg" alt="sanuka">
+                        <img src="team/yasmin.jpg" alt="Sanuka Nesara">
                     </div>
                     <h4>Sanuka Nesara</h4>
                     <p>Co-Founder</p>
@@ -252,7 +439,10 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Contact Us</h2>
+            <div class="section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch with us today</p>
+            </div>
             <div class="contact-container">
                 <div class="contact-form">
                     <form id="contactForm">
@@ -268,7 +458,10 @@
                             <label for="message">Your Message</label>
                             <textarea id="message" name="message" required placeholder="How can we help you?"></textarea>
                         </div>
-                        <button type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="btn">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -277,7 +470,8 @@
 
     <!-- Success Message -->
     <div id="successMessage" class="success-message">
-        Thank you! Your message has been sent successfully.
+        <i class="fas fa-check-circle"></i>
+        <span>Thank you! Your message has been sent successfully.</span>
     </div>
 
     <!-- Footer -->
@@ -288,15 +482,15 @@
                     <h3>About Tecnot</h3>
                     <p>Tecnot is a university SDGP project developed to improve the workflow of healthcare professionals in Sri Lanka by automating clinical note-taking through cutting-edge AI technology.</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-column">
-                    <h3>Contact Information</h3>
+                    <h3>Contact</h3>
                     <ul class="contact-info">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
@@ -312,27 +506,25 @@
                         </li>
                         <li>
                             <i class="fas fa-clock"></i>
-                            <span>Monday - Friday: 9AM - 5PM</span>
+                            <span>Mon - Fri: 9AM - 5PM</span>
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="quick-links">
                         <li><a href="#hero"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#features"><i class="fas fa-chevron-right"></i> What We Offer</a></li>
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Tecnot</a></li>
-                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Meet Our Team</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Team</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="copyright">
-                &copy; 2025 Tecnot. All rights reserved. Designed and developed by IIT SDGP Team 49.
+                &copy; 2025 Tecnot. All rights reserved. Designed by IIT SDGP Team 49.
             </div>
         </div>
     </footer>
