@@ -1811,6 +1811,15 @@ nav ul li a.active {
     object-fit: cover;
 }
 
+/* Alfred and Sanuka avatar positioning - full body photos need to show face */
+.avatar-alfred img {
+    object-position: center 5%;
+}
+
+.avatar-sanuka img {
+    object-position: center 10%;
+}
+
 .team-member h4 {
     font-size: 16px;
     font-weight: 600;
