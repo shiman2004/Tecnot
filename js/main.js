@@ -232,3 +232,34 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoPlay();
     }
 });
+
+// --- FIX: Features Scroll Logic ---
+const featureBlocks = document.querySelectorAll('.feature-text-block');
+const featureVisuals = document.querySelectorAll('.feature-visual');
+
+const featureObserverOptions = {
+    root: null,
+    rootMargin: '-30% 0px -30% 0px', // Triggers when text is in the center 40% of screen
+    threshold: 0.1
+};
+
+const featureObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const featureId = entry.target.getAttribute('data-feature');
+            
+            // 1. Remove active class from all visuals
+            featureVisuals.forEach(visual => {
+                visual.classList.remove('active');
+            });
+            
+            // 2. Add active class to the matching visual
+            const activeVisual = document.querySelector(`.feature-visual[data-feature="${featureId}"]`);
+            if (activeVisual) {
+                activeVisual.classList.add('active');
+            }
+        }
+    });
+}, featureObserverOptions);
+
+featureBlocks.forEach(block => featureObserver.observe(block));
