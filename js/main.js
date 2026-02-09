@@ -1,9 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
-// TECNOT - Main JavaScript
-// Minimal, functional interactions
+// TECNOT - Main JavaScript (CLEAN + WORKING)
 // ═══════════════════════════════════════════════════════════════════
 
-// Mobile Navigation
 function toggleMobileMenu() {
   const nav = document.getElementById('nav');
   const overlay = document.getElementById('overlay');
@@ -34,7 +32,7 @@ function closeMobileMenu() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Create overlay for mobile menu
+  // Overlay for mobile menu
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   overlay.id = 'overlay';
@@ -42,9 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Mobile menu toggle
   const mobileToggle = document.getElementById('mobileToggle');
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', toggleMobileMenu);
-  }
+  if (mobileToggle) mobileToggle.addEventListener('click', toggleMobileMenu);
 
   // Close menu on overlay click
   overlay.addEventListener('click', closeMobileMenu);
@@ -54,44 +50,32 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('click', function () {
       if (window.innerWidth <= 768) closeMobileMenu();
     });
-      // ═══════════════════════════════════════════════════════════════════
-  // ABOUT v2: reveal on scroll + glow follow
-  // ═══════════════════════════════════════════════════════════════════
-  const aboutReveal = document.querySelectorAll('#about .reveal-up');
-  if ('IntersectionObserver' in window && aboutReveal.length) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('in-view');
-      });
-    }, { threshold: 0.14 });
-
-    aboutReveal.forEach(el => obs.observe(el));
-  } else {
-    aboutReveal.forEach(el => el.classList.add('in-view'));
-  }
-
-  // Glow follow (same premium style)
-  const aboutGlow = document.querySelector('#about .about-glow-card');
-  if (aboutGlow) {
-    const reset = () => {
-      aboutGlow.style.setProperty('--mx', '50%');
-      aboutGlow.style.setProperty('--my', '30%');
-    };
-    reset();
-
-    aboutGlow.addEventListener('mousemove', (e) => {
-      const r = aboutGlow.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      aboutGlow.style.setProperty('--mx', `${(x / r.width) * 100}%`);
-      aboutGlow.style.setProperty('--my', `${(y / r.height) * 100}%`);
-    });
-
-    aboutGlow.addEventListener('mouseleave', reset);
-  }
   });
 
-  // Contact form handling
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // Resize close mobile nav
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) closeMobileMenu();
+  });
+
+  // Contact form success message
   const form = document.getElementById('contactForm');
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -112,34 +96,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href !== '#') {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  // ═══════════════════════════════════════════════════════════════════
+  // ABOUT v2: reveal on scroll + glow follow
+  // ═══════════════════════════════════════════════════════════════════
+  const aboutReveal = document.querySelectorAll('#about .reveal-up');
+  if ('IntersectionObserver' in window && aboutReveal.length) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.14 });
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
+    aboutReveal.forEach(el => obs.observe(el));
+  } else {
+    aboutReveal.forEach(el => el.classList.add('in-view'));
+  }
+
+  const aboutGlow = document.querySelector('#about .about-glow-card');
+  if (aboutGlow) {
+    const reset = () => {
+      aboutGlow.style.setProperty('--mx', '50%');
+      aboutGlow.style.setProperty('--my', '30%');
+    };
+    reset();
+
+    aboutGlow.addEventListener('mousemove', (e) => {
+      const r = aboutGlow.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      aboutGlow.style.setProperty('--mx', `${(x / r.width) * 100}%`);
+      aboutGlow.style.setProperty('--my', `${(y / r.height) * 100}%`);
     });
-  });
 
-  // Handle window resize
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 768) closeMobileMenu();
-  });
+    aboutGlow.addEventListener('mouseleave', reset);
+  }
 
   // ═══════════════════════════════════════════════════════════════════
-  // 3D Cards Carousel
+  // 3D Cards Carousel (now in FEATURES section)
   // ═══════════════════════════════════════════════════════════════════
   const carousel = document.getElementById('cardsCarousel');
   const caption = document.getElementById('carouselCaption');
@@ -221,35 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
     startAutoPlay();
   }
 
-  // --- Features Scroll Logic ---
-  const featureBlocks = document.querySelectorAll('.feature-text-block');
-  const featureVisuals = document.querySelectorAll('.feature-visual');
-
-  const featureObserverOptions = {
-    root: null,
-    rootMargin: '-30% 0px -30% 0px',
-    threshold: 0.1
-  };
-
-  if ('IntersectionObserver' in window && featureBlocks.length && featureVisuals.length) {
-    const featureObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const featureId = entry.target.getAttribute('data-feature');
-
-          featureVisuals.forEach(visual => visual.classList.remove('active'));
-
-          const activeVisual = document.querySelector(`.feature-visual[data-feature="${featureId}"]`);
-          if (activeVisual) activeVisual.classList.add('active');
-        }
-      });
-    }, featureObserverOptions);
-
-    featureBlocks.forEach(block => featureObserver.observe(block));
-  }
-
   // ═══════════════════════════════════════════════════════════════════
-  // TEAM: Horizontal slider (3 visible) + arrows + drag + progress + tilt
+  // TEAM: Horizontal slider + arrows + drag + progress + tilt
   // ═══════════════════════════════════════════════════════════════════
   const teamScroll = document.getElementById('teamScroll');
   const teamPrev = document.getElementById('teamPrev');
@@ -271,19 +237,13 @@ document.addEventListener('DOMContentLoaded', function () {
       teamProgressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
     };
 
-    teamNext.addEventListener('click', () => {
-      teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' });
-    });
-
-    teamPrev.addEventListener('click', () => {
-      teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' });
-    });
+    teamNext.addEventListener('click', () => teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' }));
+    teamPrev.addEventListener('click', () => teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' }));
 
     teamScroll.addEventListener('scroll', updateProgress, { passive: true });
     window.addEventListener('resize', updateProgress);
     updateProgress();
 
-    // Drag-to-scroll (mouse)
     let isDown = false;
     let startX = 0;
     let startLeft = 0;
@@ -306,7 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
       teamScroll.scrollLeft = startLeft - dx;
     });
 
-    // Drag-to-scroll (touch)
     let touchX = 0;
     let touchLeft = 0;
 
@@ -320,13 +279,11 @@ document.addEventListener('DOMContentLoaded', function () {
       teamScroll.scrollLeft = touchLeft - dx;
     }, { passive: true });
 
-    // Keyboard support
     teamScroll.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' });
       if (e.key === 'ArrowLeft') teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' });
     });
 
-    // Hover tilt + glow follow
     const teamCards = teamScroll.querySelectorAll('.team-item[data-tilt]');
     teamCards.forEach((card) => {
       const reset = () => {
@@ -352,3 +309,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
