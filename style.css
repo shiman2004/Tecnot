@@ -1763,3 +1763,48 @@ nav ul li a.active {
   }
 }
 
+/* =========================
+   MOBILE SMOOTHNESS PATCH
+   ========================= */
+
+/* smoother scrolling */
+.team-scroll,
+.cards-carousel {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* reduce paint & lag on mobile */
+.carousel-card,
+.team-scroll .team-item,
+.team-scroll .team-image-wrapper img {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* smoother momentum + prevent horizontal page scroll stealing */
+.team-scroll {
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scroll-snap-type: x mandatory;
+}
+
+/* make each team card snap nicely */
+.team-scroll .team-item {
+  scroll-snap-align: start;
+}
+
+/* on phones: reduce heavy 3D transforms (this is the MAIN fix) */
+@media (max-width: 520px) {
+  .cards-carousel {
+    perspective: none;
+  }
+  .carousel-card {
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  .carousel-card[data-position="center"] {
+    transform: translateX(0) translateY(0) translateZ(0) !important;
+  }
+}
+
+
