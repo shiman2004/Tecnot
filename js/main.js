@@ -212,54 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     featureBlocks.forEach(block => featureObserver.observe(block));
   }
-});
 
   // ═══════════════════════════════════════════════════════════════════
-  // TEAM: Premium reveal on scroll + hover tilt (ONLY TEAM)
-  // ═══════════════════════════════════════════════════════════════════
-  const teamItems = document.querySelectorAll('.team-animated-grid .team-item');
-
-  if ('IntersectionObserver' in window && teamItems.length) {
-    const teamObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('in-view');
-      });
-    }, { threshold: 0.18 });
-
-    teamItems.forEach(item => teamObserver.observe(item));
-  } else {
-    // fallback
-    teamItems.forEach(item => item.classList.add('in-view'));
-  }
-
-  // Hover tilt + glow follow (mouse position) — subtle & premium
-  teamItems.forEach((card) => {
-    if (!card.hasAttribute('data-tilt')) return;
-
-    const reset = () => {
-      card.style.transform = '';
-      card.style.setProperty('--mx', '50%');
-      card.style.setProperty('--my', '30%');
-    };
-
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-
-      const rx = ((y / r.height) - 0.5) * -6; // rotateX
-      const ry = ((x / r.width) - 0.5) * 8;   // rotateY
-
-      card.style.transform = `translateY(-10px) scale(1.01) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      card.style.setProperty('--mx', `${(x / r.width) * 100}%`);
-      card.style.setProperty('--my', `${(y / r.height) * 100}%`);
-    });
-
-    card.addEventListener('mouseleave', reset);
-  });
-
-    // ═══════════════════════════════════════════════════════════════════
-  // TEAM: Horizontal slider (3 visible) + arrows + drag + progress
+  // TEAM: Horizontal slider (3 visible) + arrows + drag + progress + tilt
   // ═══════════════════════════════════════════════════════════════════
   const teamScroll = document.getElementById('teamScroll');
   const teamPrev = document.getElementById('teamPrev');
@@ -330,35 +285,35 @@ document.addEventListener('DOMContentLoaded', function () {
       teamScroll.scrollLeft = touchLeft - dx;
     }, { passive: true });
 
-    // Optional: keyboard support
+    // Keyboard support
     teamScroll.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' });
       if (e.key === 'ArrowLeft') teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' });
     });
-  }
 
-  // Hover tilt + glow follow (still premium)
-  const teamCards = document.querySelectorAll('#teamScroll .team-item[data-tilt]');
-  teamCards.forEach((card) => {
-    const reset = () => {
-      card.style.transform = '';
-      card.style.setProperty('--mx', '50%');
-      card.style.setProperty('--my', '30%');
-    };
+    // Hover tilt + glow follow
+    const teamCards = teamScroll.querySelectorAll('.team-item[data-tilt]');
+    teamCards.forEach((card) => {
+      const reset = () => {
+        card.style.transform = '';
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '30%');
+      };
 
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
 
-      const rx = ((y / r.height) - 0.5) * -5;
-      const ry = ((x / r.width) - 0.5) * 7;
+        const rx = ((y / r.height) - 0.5) * -5;
+        const ry = ((x / r.width) - 0.5) * 7;
 
-      card.style.transform = `translateY(-10px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      card.style.setProperty('--mx', `${(x / r.width) * 100}%`);
-      card.style.setProperty('--my', `${(y / r.height) * 100}%`);
+        card.style.transform = `translateY(-10px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        card.style.setProperty('--mx', `${(x / r.width) * 100}%`);
+        card.style.setProperty('--my', `${(y / r.height) * 100}%`);
+      });
+
+      card.addEventListener('mouseleave', reset);
     });
-
-    card.addEventListener('mouseleave', reset);
-  });
-
+  }
+});
