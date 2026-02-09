@@ -213,3 +213,152 @@ document.addEventListener('DOMContentLoaded', function () {
     featureBlocks.forEach(block => featureObserver.observe(block));
   }
 });
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TEAM: Premium reveal on scroll + hover tilt (ONLY TEAM)
+  // ═══════════════════════════════════════════════════════════════════
+  const teamItems = document.querySelectorAll('.team-animated-grid .team-item');
+
+  if ('IntersectionObserver' in window && teamItems.length) {
+    const teamObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.18 });
+
+    teamItems.forEach(item => teamObserver.observe(item));
+  } else {
+    // fallback
+    teamItems.forEach(item => item.classList.add('in-view'));
+  }
+
+  // Hover tilt + glow follow (mouse position) — subtle & premium
+  teamItems.forEach((card) => {
+    if (!card.hasAttribute('data-tilt')) return;
+
+    const reset = () => {
+      card.style.transform = '';
+      card.style.setProperty('--mx', '50%');
+      card.style.setProperty('--my', '30%');
+    };
+
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+
+      const rx = ((y / r.height) - 0.5) * -6; // rotateX
+      const ry = ((x / r.width) - 0.5) * 8;   // rotateY
+
+      card.style.transform = `translateY(-10px) scale(1.01) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      card.style.setProperty('--mx', `${(x / r.width) * 100}%`);
+      card.style.setProperty('--my', `${(y / r.height) * 100}%`);
+    });
+
+    card.addEventListener('mouseleave', reset);
+  });
+
+    // ═══════════════════════════════════════════════════════════════════
+  // TEAM: Horizontal slider (3 visible) + arrows + drag + progress
+  // ═══════════════════════════════════════════════════════════════════
+  const teamScroll = document.getElementById('teamScroll');
+  const teamPrev = document.getElementById('teamPrev');
+  const teamNext = document.getElementById('teamNext');
+  const teamProgressBar = document.getElementById('teamProgressBar');
+
+  if (teamScroll && teamPrev && teamNext) {
+    const getStep = () => {
+      const card = teamScroll.querySelector('.team-item');
+      if (!card) return 320;
+      const gap = parseFloat(getComputedStyle(teamScroll).gap || '0') || 0;
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const updateProgress = () => {
+      if (!teamProgressBar) return;
+      const max = teamScroll.scrollWidth - teamScroll.clientWidth;
+      const pct = max <= 0 ? 100 : (teamScroll.scrollLeft / max) * 100;
+      teamProgressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    };
+
+    teamNext.addEventListener('click', () => {
+      teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+
+    teamPrev.addEventListener('click', () => {
+      teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+
+    teamScroll.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+
+    // Drag-to-scroll (mouse)
+    let isDown = false;
+    let startX = 0;
+    let startLeft = 0;
+
+    teamScroll.addEventListener('mousedown', (e) => {
+      isDown = true;
+      teamScroll.classList.add('dragging');
+      startX = e.pageX;
+      startLeft = teamScroll.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      teamScroll.classList.remove('dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      const dx = e.pageX - startX;
+      teamScroll.scrollLeft = startLeft - dx;
+    });
+
+    // Drag-to-scroll (touch)
+    let touchX = 0;
+    let touchLeft = 0;
+
+    teamScroll.addEventListener('touchstart', (e) => {
+      touchX = e.touches[0].pageX;
+      touchLeft = teamScroll.scrollLeft;
+    }, { passive: true });
+
+    teamScroll.addEventListener('touchmove', (e) => {
+      const dx = e.touches[0].pageX - touchX;
+      teamScroll.scrollLeft = touchLeft - dx;
+    }, { passive: true });
+
+    // Optional: keyboard support
+    teamScroll.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') teamScroll.scrollBy({ left: getStep(), behavior: 'smooth' });
+      if (e.key === 'ArrowLeft') teamScroll.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+  }
+
+  // Hover tilt + glow follow (still premium)
+  const teamCards = document.querySelectorAll('#teamScroll .team-item[data-tilt]');
+  teamCards.forEach((card) => {
+    const reset = () => {
+      card.style.transform = '';
+      card.style.setProperty('--mx', '50%');
+      card.style.setProperty('--my', '30%');
+    };
+
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+
+      const rx = ((y / r.height) - 0.5) * -5;
+      const ry = ((x / r.width) - 0.5) * 7;
+
+      card.style.transform = `translateY(-10px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      card.style.setProperty('--mx', `${(x / r.width) * 100}%`);
+      card.style.setProperty('--my', `${(y / r.height) * 100}%`);
+    });
+
+    card.addEventListener('mouseleave', reset);
+  });
+

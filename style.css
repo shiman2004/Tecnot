@@ -1318,3 +1318,274 @@ nav ul li a.active {
 @media (max-width: 480px){
   .team-flat-grid{ grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   TEAM: TOP-NOTCH ANIMATIONS (ONLY TEAM)
+========================================= */
+.team-animated-grid .team-item{
+  opacity: 0;
+  transform: translateY(26px) scale(0.98);
+  filter: blur(6px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease),
+    filter 700ms var(--ease);
+  transition-delay: var(--d, 0ms);
+  will-change: transform, opacity;
+  position: relative;
+}
+
+/* reveal when in view */
+.team-animated-grid .team-item.in-view{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* soft premium glow */
+.team-animated-grid .team-item::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius: 22px;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(121,175,162,0.22),
+    transparent 45%);
+  opacity: 0;
+  transition: opacity 220ms var(--ease);
+  pointer-events:none;
+  z-index: 0;
+}
+
+.team-animated-grid .team-item:hover::before{
+  opacity: 1;
+}
+
+.team-animated-grid .team-item .team-image-wrapper,
+.team-animated-grid .team-item .team-meta{
+  position: relative;
+  z-index: 1;
+}
+
+/* hover lift + depth */
+.team-animated-grid .team-item:hover{
+  transform: translateY(-10px) scale(1.01);
+}
+
+/* image: smooth zoom + contrast */
+.team-animated-grid .team-image-wrapper img{
+  transition: transform 700ms var(--ease), filter 700ms var(--ease);
+  transform: scale(1.02);
+}
+.team-animated-grid .team-item:hover .team-image-wrapper img{
+  transform: scale(1.08);
+  filter: grayscale(0%) contrast(1.05);
+}
+
+/* socials: slide in + fade */
+.team-animated-grid .team-links a{
+  transform: translateY(6px);
+  opacity: 0.65;
+  transition: transform 240ms var(--ease), opacity 240ms var(--ease), background 240ms var(--ease), color 240ms var(--ease), border-color 240ms var(--ease);
+}
+.team-animated-grid .team-item:hover .team-links a{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* featured card: subtle pulse ring */
+.team-animated-grid .team-item.featured .team-image-wrapper{
+  position: relative;
+}
+.team-animated-grid .team-item.featured .team-image-wrapper::after{
+  content:"";
+  position:absolute;
+  inset: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(121,175,162,0.25);
+  opacity: 0.8;
+  animation: tecnot-pulse 2.8s var(--ease) infinite;
+  pointer-events:none;
+}
+@keyframes tecnot-pulse{
+  0%{ transform: scale(0.98); opacity: 0.35; }
+  50%{ transform: scale(1.02); opacity: 0.75; }
+  100%{ transform: scale(0.98); opacity: 0.35; }
+}
+
+/* reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce){
+  .team-animated-grid .team-item,
+  .team-animated-grid .team-item::before,
+  .team-animated-grid .team-item.featured .team-image-wrapper::after{
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* =========================================
+   TEAM: HORIZONTAL SCROLL SLIDER (3 visible)
+========================================= */
+
+.team-controls{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  margin: 22px 0 18px;
+}
+
+.team-nav-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: .2s var(--ease);
+}
+.team-nav-btn:hover{
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+.team-nav-btn:active{ transform: scale(0.98); }
+
+.team-progress{
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.team-progress-bar{
+  display:block;
+  height:100%;
+  width: 0%;
+  background: var(--primary);
+  border-radius: 999px;
+  transition: width 120ms linear;
+}
+
+.team-scroll-wrap{
+  position: relative;
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-xl);
+}
+
+/* actual scroll row */
+.team-scroll{
+  display:flex;
+  gap: var(--space-3xl);
+  overflow-x: auto;
+  padding: 6px 4px 18px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* hide scrollbar but keep scroll */
+.team-scroll::-webkit-scrollbar{ height: 10px; }
+.team-scroll::-webkit-scrollbar-track{ background: transparent; }
+.team-scroll::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.10);
+  border-radius: 999px;
+}
+.team-scroll{
+  scrollbar-color: rgba(255,255,255,0.18) transparent;
+  scrollbar-width: thin;
+}
+
+/* card sizing -> 3 visible on desktop */
+.team-scroll .team-item{
+  flex: 0 0 calc((100% - (var(--space-3xl) * 2)) / 3);
+  scroll-snap-align: start;
+  position: relative;
+  transform: translateY(0);
+  opacity: 1;
+  filter: none;
+}
+
+/* 2 visible on tablets */
+@media (max-width: 992px){
+  .team-scroll .team-item{
+    flex-basis: calc((100% - var(--space-3xl)) / 2);
+  }
+}
+
+/* 1 visible on phones */
+@media (max-width: 520px){
+  .team-scroll .team-item{
+    flex-basis: 100%;
+  }
+}
+
+/* keep your premium image style */
+.team-scroll .team-image-wrapper{
+  border-radius: 18px;
+  overflow:hidden;
+  background: var(--surface);
+}
+
+/* premium glow on hover */
+.team-scroll .team-item::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius: 22px;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(121,175,162,0.22),
+    transparent 45%);
+  opacity: 0;
+  transition: opacity 220ms var(--ease);
+  pointer-events:none;
+  z-index: 0;
+}
+.team-scroll .team-item:hover::before{ opacity: 1; }
+
+.team-scroll .team-item .team-image-wrapper,
+.team-scroll .team-item .team-meta{
+  position: relative;
+  z-index: 1;
+}
+
+/* hover lift */
+.team-scroll .team-item{
+  transition: transform 220ms var(--ease);
+}
+.team-scroll .team-item:hover{
+  transform: translateY(-10px);
+}
+
+/* featured pulse */
+.team-scroll .team-item.featured .team-image-wrapper{
+  position: relative;
+  outline: 2px solid rgba(121,175,162,0.25);
+}
+.team-scroll .team-item.featured .team-image-wrapper::after{
+  content:"";
+  position:absolute;
+  inset: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(121,175,162,0.25);
+  opacity: 0.8;
+  animation: tecnot-pulse 2.8s var(--ease) infinite;
+  pointer-events:none;
+}
+@keyframes tecnot-pulse{
+  0%{ transform: scale(0.98); opacity: 0.35; }
+  50%{ transform: scale(1.02); opacity: 0.75; }
+  100%{ transform: scale(0.98); opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .team-scroll .team-item,
+  .team-scroll .team-item::before,
+  .team-scroll .team-item.featured .team-image-wrapper::after{
+    transition: none !important;
+    animation: none !important;
+  }
+}

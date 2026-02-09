@@ -330,26 +330,42 @@
     </div>
   </section>
 
-  <!-- ✅ TEAM Section (UPDATED) -->
-  <section id="team" class="team-section">
-    <div class="container">
-      <div class="section-header-left">
-        <h2 class="section-title">Meet the <span class="accent">Tecnot Team</span></h2>
-        <p class="section-subtitle">
-          Team 49 — building Sri Lanka’s AI clinical scribe for faster, cleaner clinical documentation.
-        </p>
+<!-- ✅ TEAM Section (HORIZONTAL SCROLL / SLIDER) -->
+<section id="team" class="team-section">
+  <div class="container">
+    <div class="section-header-left">
+      <h2 class="section-title">Meet the <span class="accent">Tecnot Team</span></h2>
+      <p class="section-subtitle">
+        Team 49 — building Sri Lanka’s AI clinical scribe for faster, cleaner clinical documentation.
+      </p>
+    </div>
+
+    <!-- Controls -->
+    <div class="team-controls">
+      <button class="team-nav-btn" id="teamPrev" type="button" aria-label="Previous">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+
+      <div class="team-progress" aria-hidden="true">
+        <span class="team-progress-bar" id="teamProgressBar"></span>
       </div>
 
-      <div class="team-flat-grid">
+      <button class="team-nav-btn" id="teamNext" type="button" aria-label="Next">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
 
-        <div class="team-item">
+    <!-- Scroll Area -->
+    <div class="team-scroll-wrap">
+      <div class="team-scroll" id="teamScroll" tabindex="0" aria-label="Tecnot team members slider">
+
+        <div class="team-item" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/ibrahim.jpg" alt="Ibrahim Sharaff">
           </div>
           <div class="team-meta">
             <h4>Ibrahim Sharaff</h4>
             <span class="role">Project Lead & AI/ML Lead</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -358,14 +374,13 @@
         </div>
 
         <!-- ✅ Featured: Shiman -->
-        <div class="team-item featured">
+        <div class="team-item featured" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/shiman.jpg" alt="Shiman Nafaas">
           </div>
           <div class="team-meta">
             <h4>Shiman Nafaas</h4>
             <span class="role">Project Co-Lead & Front-End Lead</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -373,14 +388,13 @@
           </div>
         </div>
 
-        <div class="team-item">
+        <div class="team-item" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/malik.jpeg" alt="Malik Hanaffi">
           </div>
           <div class="team-meta">
             <h4>Malik Hanaffi</h4>
             <span class="role">Front-End Developer</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -388,14 +402,13 @@
           </div>
         </div>
 
-        <div class="team-item">
+        <div class="team-item" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/akiff.jpg" alt="Akiff Ahamed">
           </div>
           <div class="team-meta">
             <h4>Akiff Ahamed</h4>
             <span class="role">AI/ML Developer</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -403,14 +416,13 @@
           </div>
         </div>
 
-        <div class="team-item">
+        <div class="team-item" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/Prajith.jpeg" alt="Alfred Prajith">
           </div>
           <div class="team-meta">
             <h4>Alfred Prajith</h4>
             <span class="role">Back-End Lead</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -418,14 +430,13 @@
           </div>
         </div>
 
-        <div class="team-item">
+        <div class="team-item" data-tilt>
           <div class="team-image-wrapper">
             <img src="images/Sanuka.jpeg" alt="Sanuka Nesara">
           </div>
           <div class="team-meta">
             <h4>Sanuka Nesara</h4>
             <span class="role">Back-End Developer</span>
-
             <div class="team-links">
               <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
               <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -435,7 +446,10 @@
 
       </div>
     </div>
-  </section>
+
+  </div>
+</section>
+
 
   <!-- Contact -->
   <section id="contact" class="contact-section">
