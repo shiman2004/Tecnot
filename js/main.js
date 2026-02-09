@@ -54,6 +54,41 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('click', function () {
       if (window.innerWidth <= 768) closeMobileMenu();
     });
+      // ═══════════════════════════════════════════════════════════════════
+  // ABOUT v2: reveal on scroll + glow follow
+  // ═══════════════════════════════════════════════════════════════════
+  const aboutReveal = document.querySelectorAll('#about .reveal-up');
+  if ('IntersectionObserver' in window && aboutReveal.length) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.14 });
+
+    aboutReveal.forEach(el => obs.observe(el));
+  } else {
+    aboutReveal.forEach(el => el.classList.add('in-view'));
+  }
+
+  // Glow follow (same premium style)
+  const aboutGlow = document.querySelector('#about .about-glow-card');
+  if (aboutGlow) {
+    const reset = () => {
+      aboutGlow.style.setProperty('--mx', '50%');
+      aboutGlow.style.setProperty('--my', '30%');
+    };
+    reset();
+
+    aboutGlow.addEventListener('mousemove', (e) => {
+      const r = aboutGlow.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      aboutGlow.style.setProperty('--mx', `${(x / r.width) * 100}%`);
+      aboutGlow.style.setProperty('--my', `${(y / r.height) * 100}%`);
+    });
+
+    aboutGlow.addEventListener('mouseleave', reset);
+  }
   });
 
   // Contact form handling
