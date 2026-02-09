@@ -10,7 +10,7 @@
    Design Tokens
    ───────────────────────────────────────────────────────────────────── */
 :root {
-  /* Colors */
+  /* Colors testing*/
   --primary: #79AFA2;
   --primary-dim: rgba(121, 175, 162, 0.1);
   --primary-focus: rgba(121, 175, 162, 0.05);
