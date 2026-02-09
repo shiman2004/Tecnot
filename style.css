@@ -1308,7 +1308,6 @@ nav ul li a.active {
   outline: 2px solid rgba(121,175,162,0.35);
 }
 .team-item.featured .team-meta h4::after{
-  content:" ⭐";
   color: var(--primary);
 }
 
