@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════
-// TECNOT - Main JavaScript (CLEAN + WORKING)
+// TECNOT - Main JavaScript (CLEAN + WORKING) testing
 // ═══════════════════════════════════════════════════════════════════
 
 function toggleMobileMenu() {
