@@ -1229,3 +1229,93 @@ nav ul li a.active {
 }
 
 @media (max-width: 480px) { .team-flat-grid { grid-template-columns: 1fr; } }
+
+/* =========================================
+   PATCH: Overlay for Mobile Menu
+========================================= */
+.overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+  z-index: 900;
+}
+.overlay.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================================
+   PATCH: Success message for contact form
+========================================= */
+.success-message{
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(121,175,162,0.25);
+  background: rgba(121,175,162,0.08);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  display: none;
+}
+.success-message.show{ display:block; }
+
+/* =========================================
+   TEAM: Upgraded layout + socials + featured
+========================================= */
+.team-flat-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3xl);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-xl);
+}
+
+.team-image-wrapper{
+  border-radius: 18px; /* rounded modern look */
+  overflow: hidden;
+}
+
+.team-links{
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.team-links a{
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: var(--surface);
+  transition: .2s;
+}
+
+.team-links a:hover{
+  background: var(--surface-hover);
+  color: var(--primary);
+  border-color: rgba(121,175,162,0.25);
+}
+
+/* Featured team card */
+.team-item.featured .team-image-wrapper{
+  outline: 2px solid rgba(121,175,162,0.35);
+}
+.team-item.featured .team-meta h4::after{
+  content:" ⭐";
+  color: var(--primary);
+}
+
+/* Responsive team grid */
+@media (max-width: 992px){
+  .team-flat-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px){
+  .team-flat-grid{ grid-template-columns: 1fr; }
+}
