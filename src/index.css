@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Colors - Deep Teal Clinical Theme */
+  --bg-primary: hsl(210, 20%, 6%);
+  --bg-surface: hsl(210, 18%, 10%);
+  --bg-elevated: hsl(210, 16%, 14%);
+  
+  --teal-primary: hsl(170, 40%, 51%);
+  --teal-light: hsl(170, 40%, 65%);
+  --teal-glow: hsl(170, 60%, 51%);
+  
+  --text-primary: hsl(210, 20%, 98%);
+  --text-secondary: hsl(210, 15%, 70%);
+  --text-muted: hsl(210, 10%, 50%);
+  
+  --border-subtle: hsla(210, 20%, 30%, 0.15);
+  --border-glow: hsla(170, 60%, 51%, 0.25);
+  
+  /* Gradients */
+  --gradient-teal: linear-gradient(135deg, var(--teal-primary), var(--teal-light));
+  --gradient-bg: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
+  --gradient-orb: radial-gradient(circle at 50% 50%, hsla(170, 60%, 51%, 0.15), transparent 70%);
+  
+  /* Shadows */
+  --shadow-glow: 0 0 40px hsla(170, 60%, 51%, 0.3);
+  --shadow-card: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+  --shadow-elevated: 0 20px 60px hsla(0, 0%, 0%, 0.6);
+  
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Utility Classes */
+.glass {
+  background: hsla(210, 18%, 10%, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glow-border {
+  border: 1px solid var(--border-glow);
+  box-shadow: 0 0 20px hsla(170, 60%, 51%, 0.2);
+}
+
+.text-gradient {
+  background: var(--gradient-teal);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--teal-primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal-light);
+}
+
+/* Selection */
+::selection {
+  background: var(--teal-primary);
+  color: var(--bg-primary);
+}
