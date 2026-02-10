@@ -1,95 +1,185 @@
-
+import { useState, useEffect } from 'react';
 import './HowItWorks.css';
 
 const HowItWorks = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
   const steps = [
     {
       number: 1,
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 8C12.68 8 10 10.68 10 14C10 17.32 12.68 20 16 20C19.32 20 22 17.32 22 14C22 10.68 19.32 8 16 8Z" stroke="currentColor" strokeWidth="2"/>
-          <path d="M6 28C6 23.58 11.16 20 16 20C20.84 20 26 23.58 26 28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-      ),
       title: 'Select Patient',
-      description: 'Search or add a patient. Their demographics, allergies, and history load instantly.'
+      description: 'Search or add a patient. Demographics, allergies, and history load instantly.',
+      visual: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="40" r="18" stroke="#4DB8A8" strokeWidth="3" fill="none" opacity="0.8"/>
+          <path d="M35 90C35 90 35 70 60 70C85 70 85 90 85 90" stroke="#4DB8A8" strokeWidth="3" strokeLinecap="round" opacity="0.8"/>
+          <circle cx="40" cy="40" r="3" fill="#6dd5c3">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="80" cy="40" r="3" fill="#6dd5c3">
+            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      )
     },
     {
       number: 2,
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 6C12.68 6 10 8.68 10 12V16C10 19.32 12.68 22 16 22C19.32 22 22 19.32 22 16V12C22 8.68 19.32 6 16 6Z" stroke="currentColor" strokeWidth="2"/>
-          <path d="M6 16C6 11.58 9.58 8 14 8M26 16C26 11.58 22.42 8 18 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-      ),
       title: 'Record Consultation',
-      description: 'Hit record and have a natural conversation. TECNOT listens in Sinhala, Tamil, or English.'
+      description: 'Hit record. Have a natural conversation. TECNOT listens in Sinhala, Tamil, or English.',
+      visual: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <rect x="52" y="30" width="16" height="28" rx="8" fill="#4DB8A8"/>
+          <line x1="60" y1="58" x2="60" y2="75" stroke="#4DB8A8" strokeWidth="3" strokeLinecap="round"/>
+          <line x1="50" y1="75" x2="70" y2="75" stroke="#4DB8A8" strokeWidth="3" strokeLinecap="round"/>
+          <path d="M30 45C30 45 25 50 25 55C25 60 30 65 30 65" stroke="#6dd5c3" strokeWidth="2.5" strokeLinecap="round" opacity="0.5">
+            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M90 45C90 45 95 50 95 55C95 60 90 65 90 65" stroke="#6dd5c3" strokeWidth="2.5" strokeLinecap="round" opacity="0.5">
+            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      )
     },
     {
       number: 3,
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="6" stroke="currentColor" strokeWidth="2"/>
-          <path d="M16 4L19.09 11.26L28 12.27L22 18.14L23.18 27.02L16 23.77L8.82 27.02L10 18.14L4 12.27L12.91 11.26L16 4Z" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      ),
       title: 'AI Generates SOAP',
-      description: 'In seconds, the AI extracts the chief complaint, HPI, and builds a complete SOAP note.'
+      description: 'In seconds, AI extracts chief complaint, HPI, and builds a complete SOAP note.',
+      visual: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <rect x="30" y="25" width="60" height="70" rx="4" stroke="#4DB8A8" strokeWidth="3" fill="none"/>
+          <line x1="40" y1="40" x2="80" y2="40" stroke="#6dd5c3" strokeWidth="3" strokeLinecap="round"/>
+          <line x1="40" y1="52" x2="75" y2="52" stroke="#6dd5c3" strokeWidth="2.5" strokeLinecap="round" opacity="0.7"/>
+          <line x1="40" y1="64" x2="70" y2="64" stroke="#6dd5c3" strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+          <circle cx="60" cy="60" r="25" stroke="#4DB8A8" strokeWidth="2" fill="none" opacity="0.3">
+            <animate attributeName="r" values="20;30;20" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      )
     },
     {
       number: 4,
-      icon: (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M8 16L14 22L24 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="16" cy="16" r="12" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      ),
       title: 'Review & Save',
-      description: 'Edit any section, add orders, and save. The note is stored in the patient\'s history forever.'
+      description: 'Edit any section, add orders, and save. The note lives in patient history forever.',
+      visual: (
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="30" stroke="#4DB8A8" strokeWidth="3" fill="none"/>
+          <path d="M45 60L55 70L75 50" stroke="#6dd5c3" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+            <animate attributeName="stroke-dasharray" values="0,100;100,0" dur="1.5s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      )
     }
   ];
 
+  // Auto-scroll on mobile
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
+
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [steps.length]);
+
   return (
-    <section className="how-it-works" id="how-it-works">
+    <section className="how-it-works-revolutionary" id="how-it-works">
       <div className="works-container">
         <div className="section-header">
+          <div className="section-badge">
+            <span className="pulse-dot"></span>
+            <span>Simple Workflow</span>
+          </div>
           <h2>
             How It <span className="text-gradient">Works</span>
           </h2>
-          <p>Four simple steps from consultation to documentation.</p>
+          <p>Four steps from consultation to documentation. That's it.</p>
         </div>
 
-        <div className="timeline">
-          <svg className="timeline-line" viewBox="0 0 4 600" preserveAspectRatio="none">
-            <line x1="2" y1="0" x2="2" y2="600" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="1000" strokeDashoffset="1000">
-              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2s" begin="0s" fill="freeze" />
-            </line>
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="hsl(170, 40%, 51%)" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="hsl(170, 40%, 51%)" stopOpacity="1" />
-              </linearGradient>
-            </defs>
-          </svg>
+        {/* Desktop: Horizontal Flow */}
+        <div className="flow-container">
+          <div className="flow-line">
+            <div 
+              className="flow-progress" 
+              style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
+            ></div>
+          </div>
 
-          <div className="steps">
+          <div className="steps-flow">
             {steps.map((step, index) => (
               <div 
-                key={step.number}
-                className="step"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                key={index}
+                className={`flow-step ${activeStep === index ? 'active' : ''} ${activeStep > index ? 'completed' : ''}`}
+                onClick={() => setActiveStep(index)}
+                onMouseEnter={() => setActiveStep(index)}
               >
-                <div className="step-number">{step.number}</div>
-                <div className="step-icon glass">
-                  {step.icon}
+                <div className="step-visual">
+                  {step.visual}
                 </div>
-                <div className="step-content">
+
+                <div className={`step-number ${activeStep >= index ? 'active' : ''}`}>
+                  {activeStep > index ? (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12L10 17L19 8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ) : (
+                    step.number
+                  )}
+                </div>
+
+                <div className="step-info">
                   <div className="step-label">STEP {step.number}</div>
                   <h3>{step.title}</h3>
                   <p>{step.description}</p>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Mobile: Auto-Scrolling Slider */}
+        <div className="mobile-slider">
+          <div className="slider-track" style={{ transform: `translateX(-${activeStep * 100}%)` }}>
+            {steps.map((step, index) => (
+              <div key={index} className="mobile-step-card">
+                <div className="card-visual">
+                  {step.visual}
+                </div>
+                <div className="card-number">{step.number}</div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="slider-dots">
+            {steps.map((_, index) => (
+              <button
+                key={index}
+                className={`dot ${activeStep === index ? 'active' : ''}`}
+                onClick={() => setActiveStep(index)}
+                aria-label={`Go to step ${index + 1}`}
+              ></button>
+            ))}
+          </div>
+
+          <div className="slider-arrows">
+            <button 
+              className="arrow prev" 
+              onClick={() => setActiveStep((activeStep - 1 + steps.length) % steps.length)}
+              aria-label="Previous step"
+            >
+              ←
+            </button>
+            <button 
+              className="arrow next" 
+              onClick={() => setActiveStep((activeStep + 1) % steps.length)}
+              aria-label="Next step"
+            >
+              →
+            </button>
           </div>
         </div>
       </div>
