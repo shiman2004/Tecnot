@@ -87,16 +87,43 @@
 }
 
 .mic-circle {
-  width: 120px;
-  height: 120px;
-  background: hsla(170, 60%, 51%, 0.15);
-  border: 2px solid var(--border-glow);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle at 30% 30%, rgba(109, 213, 195, 0.25), rgba(77, 184, 168, 0.15));
+  border: 3px solid var(--border-glow);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--teal-primary);
-  box-shadow: 0 0 40px hsla(170, 60%, 51%, 0.3);
+  box-shadow: 
+    0 0 40px rgba(77, 184, 168, 0.4),
+    0 0 80px rgba(77, 184, 168, 0.2),
+    inset 0 0 30px rgba(77, 184, 168, 0.1);
+  position: relative;
+  animation: micPulse 2s ease-in-out infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 40px rgba(77, 184, 168, 0.4),
+      0 0 80px rgba(77, 184, 168, 0.2),
+      inset 0 0 30px rgba(77, 184, 168, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 
+      0 0 60px rgba(77, 184, 168, 0.6),
+      0 0 120px rgba(77, 184, 168, 0.3),
+      inset 0 0 40px rgba(77, 184, 168, 0.15);
+  }
+}
+
+.mic-circle svg {
+  filter: drop-shadow(0 4px 8px rgba(77, 184, 168, 0.3));
+  z-index: 100;
 }
 
 .timer {

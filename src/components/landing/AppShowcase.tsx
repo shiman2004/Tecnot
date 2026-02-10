@@ -5,16 +5,66 @@ const AppShowcase = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
-    {
-      id: 'recording',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 3C8.34 3 7 4.34 7 6V10C7 11.66 8.34 13 10 13C11.66 13 13 11.66 13 10V6C13 4.34 11.66 3 10 3Z" fill="currentColor"/>
-          <path d="M5 10C5 7.24 7.24 5 10 5C12.76 5 15 7.24 15 10V11H17V10C17 6.13 13.87 3 10 3C6.13 3 3 6.13 3 10V11H5V10Z" fill="currentColor"/>
-        </svg>
-      ),
-      label: 'Voice Recording'
-    },
+  {
+    id: 'recording',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+        {/* Microphone capsule */}
+        <rect 
+          x="20" 
+          y="8" 
+          width="8" 
+          height="14" 
+          rx="4" 
+          fill="currentColor"
+        />
+        
+        {/* Vertical line */}
+        <line 
+          x1="24" 
+          y1="22" 
+          x2="24" 
+          y2="32" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        
+        {/* Base line */}
+        <line 
+          x1="19" 
+          y1="32" 
+          x2="29" 
+          y2="32" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        
+        {/* Left wave */}
+        <path 
+          d="M12 18C12 18 10 20 10 22C10 24 12 26 12 26" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+        
+        {/* Right wave */}
+        <path 
+          d="M36 18C36 18 38 20 38 22C38 24 36 26 36 26" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+      </svg>
+    ),
+    label: 'Voice Recording'
+  },
+  // ... rest of tabs
     {
       id: 'soap',
       icon: (
@@ -62,12 +112,110 @@ const AppShowcase = () => {
           <div className="tab-content glass glow-border">
             {activeTab === 0 && (
               <div className="content-panel recording">
-                <div className="mic-circle animate-pulse">
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <path d="M24 6C20.68 6 18 8.68 18 12V24C18 27.32 20.68 30 24 30C27.32 30 30 27.32 30 24V12C30 8.68 27.32 6 24 6Z" fill="currentColor"/>
-                    <path d="M12 24C12 17.37 17.37 12 24 12C30.63 12 36 17.37 36 24V27H42V24C42 14.06 33.94 6 24 6C14.06 6 6 14.06 6 24V27H12V24Z" fill="currentColor"/>
-                  </svg>
-                </div>
+<div className="mic-circle animate-pulse">
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Microphone capsule */}
+    <rect 
+      x="20" 
+      y="8" 
+      width="8" 
+      height="14" 
+      rx="4" 
+      fill="#4DB8A8"
+    />
+    
+    {/* Vertical line */}
+    <line 
+      x1="24" 
+      y1="22" 
+      x2="24" 
+      y2="32" 
+      stroke="#4DB8A8" 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      opacity="0.7"
+    />
+    
+    {/* Base line */}
+    <line 
+      x1="19" 
+      y1="32" 
+      x2="29" 
+      y2="32" 
+      stroke="#4DB8A8" 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      opacity="0.7"
+    />
+    
+    {/* Left wave */}
+    <path 
+      d="M12 18C12 18 10 20 10 22C10 24 12 26 12 26" 
+      stroke="#4DB8A8" 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      opacity="0.4"
+    >
+      <animate 
+        attributeName="opacity" 
+        values="0.2;0.6;0.2" 
+        dur="2s" 
+        repeatCount="indefinite"
+      />
+    </path>
+    
+    {/* Right wave */}
+    <path 
+      d="M36 18C36 18 38 20 38 22C38 24 36 26 36 26" 
+      stroke="#4DB8A8" 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      opacity="0.4"
+    >
+      <animate 
+        attributeName="opacity" 
+        values="0.2;0.6;0.2" 
+        dur="2s" 
+        begin="0.3s"
+        repeatCount="indefinite"
+      />
+    </path>
+    
+    {/* Outer left wave */}
+    <path 
+      d="M8 16C8 16 6 19 6 22C6 25 8 28 8 28" 
+      stroke="#4DB8A8" 
+      strokeWidth="1.5" 
+      strokeLinecap="round"
+      opacity="0.25"
+    >
+      <animate 
+        attributeName="opacity" 
+        values="0.1;0.4;0.1" 
+        dur="2s" 
+        begin="0.15s"
+        repeatCount="indefinite"
+      />
+    </path>
+    
+    {/* Outer right wave */}
+    <path 
+      d="M40 16C40 16 42 19 42 22C42 25 40 28 40 28" 
+      stroke="#4DB8A8" 
+      strokeWidth="1.5" 
+      strokeLinecap="round"
+      opacity="0.25"
+    >
+      <animate 
+        attributeName="opacity" 
+        values="0.1;0.4;0.1" 
+        dur="2s" 
+        begin="0.45s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </svg>
+</div>
                 <div className="timer">00:04:32</div>
                 <div className="waveform">
                   {[...Array(40)].map((_, i) => (
