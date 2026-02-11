@@ -79,7 +79,7 @@ const HowItWorks = () => {
 
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [steps.length]);
@@ -89,7 +89,7 @@ const HowItWorks = () => {
       <div className="works-container">
         <div className="section-header">
           <div className="section-badge">
-            <span className="pulse-dot"></span>
+            <span className="glow-dot"></span>
             <span>Simple Workflow</span>
           </div>
           <h2>
