@@ -1,285 +1,238 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AppShowcase.css';
 
 const AppShowcase = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  const tabs = [
-  {
-    id: 'recording',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
-        {/* Microphone capsule */}
-        <rect 
-          x="20" 
-          y="8" 
-          width="8" 
-          height="14" 
-          rx="4" 
-          fill="currentColor"
-        />
-        
-        {/* Vertical line */}
-        <line 
-          x1="24" 
-          y1="22" 
-          x2="24" 
-          y2="32" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-        
-        {/* Base line */}
-        <line 
-          x1="19" 
-          y1="32" 
-          x2="29" 
-          y2="32" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-        
-        {/* Left wave */}
-        <path 
-          d="M12 18C12 18 10 20 10 22C10 24 12 26 12 26" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round"
-          opacity="0.5"
-        />
-        
-        {/* Right wave */}
-        <path 
-          d="M36 18C36 18 38 20 38 22C38 24 36 26 36 26" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round"
-          opacity="0.5"
-        />
-      </svg>
-    ),
-    label: 'Voice Recording'
-  },
-  // ... rest of tabs
+  const steps = [
     {
-      id: 'soap',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M4 4H16V6H4V4ZM4 8H16V10H4V8ZM4 12H12V14H4V12Z" fill="currentColor"/>
-        </svg>
-      ),
-      label: 'SOAP Generation'
+      step: 1,
+      title: 'Select Patient',
+      action: 'Dr. searches for patient',
+      description: 'Search by name, MRN, or mobile number. Patient history loads instantly.',
+      visual: (
+        <div className="workflow-screen">
+          <div className="screen-header">
+            <div className="search-bar-large">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="2"/>
+                <path d="M14 14L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <span className="typing-text">Malik Ferna</span>
+              <span className="cursor-blink">|</span>
+            </div>
+            <div className="search-results">
+              <div className="result-item highlighted">
+                <div className="result-avatar">MF</div>
+                <div className="result-info">
+                  <div className="result-name">Malik Fernando</div>
+                  <div className="result-details">MRN: 1020536 • Age 42 • Male</div>
+                </div>
+                <div className="result-badge">Select</div>
+              </div>
+              <div className="result-item">
+                <div className="result-avatar">MR</div>
+                <div className="result-info">
+                  <div className="result-name">Malik Rashid</div>
+                  <div className="result-details">MRN: 1020789 • Age 38 • Male</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     },
     {
-      id: 'dashboard',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M12 6C12 7.1 11.1 8 10 8C8.9 8 8 7.1 8 6C8 4.9 8.9 4 10 4C11.1 4 12 4.9 12 6ZM4 18C4 15.79 7.58 14 10 14C12.42 14 16 15.79 16 18H4Z" fill="currentColor"/>
-        </svg>
-      ),
-      label: 'Patient Dashboard'
+      step: 2,
+      title: 'Start Recording',
+      action: 'Dr. begins consultation',
+      description: 'One tap to start. AI listens in Sinhala, Tamil, or English.',
+      visual: (
+        <div className="workflow-screen">
+          <div className="recording-interface">
+            <div className="patient-banner">
+              <div className="banner-avatar">MF</div>
+              <div className="banner-info">
+                <div className="banner-name">Malik Fernando</div>
+                <div className="banner-meta">MRN: 1020536 • Recording</div>
+              </div>
+            </div>
+            <div className="recording-central">
+              <div className="pulse-circle">
+                <div className="pulse-ring"></div>
+                <div className="pulse-ring delay-1"></div>
+                <div className="pulse-ring delay-2"></div>
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <rect x="20" y="8" width="8" height="14" rx="4" fill="#4DB8A8"/>
+                  <line x1="24" y1="22" x2="24" y2="32" stroke="#4DB8A8" strokeWidth="2" strokeLinecap="round"/>
+                  <line x1="19" y1="32" x2="29" y2="32" stroke="#4DB8A8" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <div className="recording-timer">02:34</div>
+              <div className="live-waveform">
+                {[...Array(30)].map((_, i) => (
+                  <div key={i} className="wave-bar-live" style={{ animationDelay: `${i * 0.05}s` }}></div>
+                ))}
+              </div>
+              <div className="recording-language">Listening in Sinhala</div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      step: 3,
+      title: 'AI Generates SOAP',
+      action: 'Processing consultation',
+      description: 'AI extracts key information and structures clinical note automatically.',
+      visual: (
+        <div className="workflow-screen">
+          <div className="generation-interface">
+            <div className="generation-header">
+              <div className="gen-icon spinning">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2V6M12 18V22M6 12H2M22 12H18M19.07 4.93L16.24 7.76M7.76 16.24L4.93 19.07M19.07 19.07L16.24 16.24M7.76 7.76L4.93 4.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <span>Generating SOAP Note...</span>
+            </div>
+            <div className="soap-building">
+              <div className="soap-section-build complete">
+                <div className="section-icon">✓</div>
+                <div className="section-content">
+                  <div className="section-title">Subjective</div>
+                  <div className="section-preview">Patient reports severe headache for 3 days...</div>
+                </div>
+              </div>
+              <div className="soap-section-build complete">
+                <div className="section-icon">✓</div>
+                <div className="section-content">
+                  <div className="section-title">Objective</div>
+                  <div className="section-preview">BP 140/90, HR 88, Temp 37.2°C...</div>
+                </div>
+              </div>
+              <div className="soap-section-build building">
+                <div className="section-icon loading">
+                  <div className="loading-spinner"></div>
+                </div>
+                <div className="section-content">
+                  <div className="section-title">Assessment</div>
+                  <div className="section-preview typing">Tension-type headache</div>
+                </div>
+              </div>
+              <div className="soap-section-build">
+                <div className="section-icon">○</div>
+                <div className="section-content">
+                  <div className="section-title">Plan</div>
+                  <div className="section-preview empty"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      step: 4,
+      title: 'Review & Edit',
+      action: 'Dr. reviews and customizes',
+      description: 'Edit any section. Add orders, prescriptions, and clinical notes.',
+      visual: (
+        <div className="workflow-screen">
+          <div className="review-interface">
+            <div className="note-editor">
+              <div className="editor-section">
+                <div className="editor-label">ASSESSMENT</div>
+                <div className="editor-field">
+                  <textarea className="editor-textarea" defaultValue="Tension-type headache, rule out migraine" />
+                  <div className="edit-indicator">Editing...</div>
+                </div>
+              </div>
+              <div className="editor-section">
+                <div className="editor-label">PLAN</div>
+                <div className="editor-field">
+                  <div className="plan-item">
+                    <span className="plan-number">1.</span>
+                    <span>Paracetamol 500mg PRN</span>
+                  </div>
+                  <div className="plan-item">
+                    <span className="plan-number">2.</span>
+                    <span>Rest and hydration</span>
+                  </div>
+                  <div className="plan-item">
+                    <span className="plan-number">3.</span>
+                    <span>Follow-up in 1 week</span>
+                  </div>
+                  <button className="add-order-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                    Add Order
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="action-buttons">
+              <button className="btn-save">Save Note</button>
+            </div>
+          </div>
+        </div>
+      )
     }
   ];
 
+  useEffect(() => {
+    if (!isPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentStep((prev) => (prev + 1) % steps.length);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [isPlaying, steps.length]);
+
   return (
-    <section className="app-showcase" id="app-showcase">
-      <div className="showcase-container">
-        <div className="section-header">
-          <h2>
-            See <span className="text-gradient">TECNOT</span> in Action
-          </h2>
-          <p>From recording to SOAP note — experience the complete workflow.</p>
+    <section className="app-showcase-workflow" id="app-showcase">
+      <div className="workflow-container">
+        <div className="workflow-header">
+          <h2>See <span className="text-gradient">TECNOT</span> in Action</h2>
+          <p>From patient search to saved note — the complete clinical workflow.</p>
         </div>
 
-        <div className="tabs-wrapper">
-          <div className="tabs">
-            {tabs.map((tab, index) => (
+        <div className="workflow-display">
+          <div className="steps-sidebar">
+            {steps.map((step, index) => (
               <button
-                key={tab.id}
-                className={`tab ${activeTab === index ? 'active' : ''}`}
-                onClick={() => setActiveTab(index)}
+                key={index}
+                className={`step-item ${currentStep === index ? 'active' : ''} ${currentStep > index ? 'completed' : ''}`}
+                onClick={() => {
+                  setCurrentStep(index);
+                  setIsPlaying(false);
+                }}
               >
-                {tab.icon}
-                <span>{tab.label}</span>
+                <div className="step-content">
+                  <div className="step-title">{step.title}</div>
+                  <div className="step-action">{step.action}</div>
+                </div>
               </button>
             ))}
           </div>
 
-          <div className="tab-content glass glow-border">
-            {activeTab === 0 && (
-              <div className="content-panel recording">
-<div className="mic-circle animate-pulse">
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Microphone capsule */}
-    <rect 
-      x="20" 
-      y="8" 
-      width="8" 
-      height="14" 
-      rx="4" 
-      fill="#4DB8A8"
-    />
-    
-    {/* Vertical line */}
-    <line 
-      x1="24" 
-      y1="22" 
-      x2="24" 
-      y2="32" 
-      stroke="#4DB8A8" 
-      strokeWidth="2" 
-      strokeLinecap="round"
-      opacity="0.7"
-    />
-    
-    {/* Base line */}
-    <line 
-      x1="19" 
-      y1="32" 
-      x2="29" 
-      y2="32" 
-      stroke="#4DB8A8" 
-      strokeWidth="2" 
-      strokeLinecap="round"
-      opacity="0.7"
-    />
-    
-    {/* Left wave */}
-    <path 
-      d="M12 18C12 18 10 20 10 22C10 24 12 26 12 26" 
-      stroke="#4DB8A8" 
-      strokeWidth="2" 
-      strokeLinecap="round"
-      opacity="0.4"
-    >
-      <animate 
-        attributeName="opacity" 
-        values="0.2;0.6;0.2" 
-        dur="2s" 
-        repeatCount="indefinite"
-      />
-    </path>
-    
-    {/* Right wave */}
-    <path 
-      d="M36 18C36 18 38 20 38 22C38 24 36 26 36 26" 
-      stroke="#4DB8A8" 
-      strokeWidth="2" 
-      strokeLinecap="round"
-      opacity="0.4"
-    >
-      <animate 
-        attributeName="opacity" 
-        values="0.2;0.6;0.2" 
-        dur="2s" 
-        begin="0.3s"
-        repeatCount="indefinite"
-      />
-    </path>
-    
-    {/* Outer left wave */}
-    <path 
-      d="M8 16C8 16 6 19 6 22C6 25 8 28 8 28" 
-      stroke="#4DB8A8" 
-      strokeWidth="1.5" 
-      strokeLinecap="round"
-      opacity="0.25"
-    >
-      <animate 
-        attributeName="opacity" 
-        values="0.1;0.4;0.1" 
-        dur="2s" 
-        begin="0.15s"
-        repeatCount="indefinite"
-      />
-    </path>
-    
-    {/* Outer right wave */}
-    <path 
-      d="M40 16C40 16 42 19 42 22C42 25 40 28 40 28" 
-      stroke="#4DB8A8" 
-      strokeWidth="1.5" 
-      strokeLinecap="round"
-      opacity="0.25"
-    >
-      <animate 
-        attributeName="opacity" 
-        values="0.1;0.4;0.1" 
-        dur="2s" 
-        begin="0.45s"
-        repeatCount="indefinite"
-      />
-    </path>
-  </svg>
-</div>
-                <div className="timer">00:04:32</div>
-                <div className="waveform">
-                  {[...Array(40)].map((_, i) => (
-                    <span key={i} style={{ animationDelay: `${i * 0.05}s` }}></span>
-                  ))}
+          <div className="visual-display">
+            <div className="visual-screen">
+              {steps.map((step, index) => (
+                <div
+                  key={index}
+                  className={`visual-item ${currentStep === index ? 'active' : ''}`}
+                >
+                  {step.visual}
                 </div>
-                <div className="status">Listening in <span className="highlight">Sinhala</span>...</div>
-              </div>
-            )}
-
-            {activeTab === 1 && (
-              <div className="content-panel soap">
-                <div className="soap-section-item">
-                  <div className="section-label">CHIEF COMPLAINT</div>
-                  <p>Severe headache for 3 days, right-sided, throbbing</p>
-                </div>
-                <div className="soap-section-item">
-                  <div className="section-label">SUBJECTIVE</div>
-                  <p>Patient reports worsening headache over 3 days. Pain is throbbing, right-sided, rated 7/10. Associated with nausea...</p>
-                </div>
-                <div className="soap-section-item">
-                  <div className="section-label">ASSESSMENT</div>
-                  <p>Tension-type headache, rule out migraine</p>
-                </div>
-                <div className="soap-section-item">
-                  <div className="section-label">PLAN</div>
-                  <p>1. Paracetamol 500mg PRN 2. Rest and hydration 3. Follow-up in 1 week</p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 2 && (
-              <div className="content-panel dashboard">
-                <div className="search-bar">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M9 2C5.13 2 2 5.13 2 9C2 12.87 5.13 16 9 16C10.57 16 12.03 15.43 13.19 14.47L17.71 19L19 17.71L14.47 13.19C15.43 12.03 16 10.57 16 9C16 5.13 12.87 2 9 2Z" fill="currentColor"/>
-                  </svg>
-                  <input type="text" placeholder="Search patients by name, MRN, complaint..." />
-                </div>
-                <div className="patient-list">
-                  <div className="patient-card">
-                    <div className="patient-info">
-                      <h4>Malik Fernando</h4>
-                      <span className="mrn">MRN: 1020536 · Severe headache</span>
-                    </div>
-                    <span className="date">03 Feb 2026</span>
-                  </div>
-                  <div className="patient-card">
-                    <div className="patient-info">
-                      <h4>Ayesha Perera</h4>
-                      <span className="mrn">MRN: 1020537 · Chest pain</span>
-                    </div>
-                    <span className="date">02 Feb 2026</span>
-                  </div>
-                  <div className="patient-card">
-                    <div className="patient-info">
-                      <h4>Ruwan Silva</h4>
-                      <span className="mrn">MRN: 1020538 · Fever and cough</span>
-                    </div>
-                    <span className="date">01 Feb 2026</span>
-                  </div>
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
+            <div className="visual-description">
+              <p>{steps[currentStep].description}</p>
+            </div>
           </div>
         </div>
       </div>
