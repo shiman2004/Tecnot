@@ -1,8 +1,24 @@
 .features-medical {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0a0b0f 0%, #13141a 100%);
-  padding: 6rem 0;
+  background: 
+    radial-gradient(ellipse at top left, rgba(13, 148, 136, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(94, 234, 212, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 50%, #FFFFFF 100%);
+  padding: 7rem 0;
   position: relative;
+}
+
+.features-medical::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: breathe 10s ease-in-out infinite;
 }
 
 .medical-container {
@@ -10,50 +26,56 @@
   margin: 0 auto;
   padding: 0 4rem;
   position: relative;
+  z-index: 1;
 }
 
-/* Header */
+/* Premium Header */
 .medical-header {
   margin-bottom: 5rem;
-  max-width: 700px;
+  max-width: 750px;
 }
 
 .header-meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.125rem;
+  margin-bottom: 1.75rem;
 }
 
 .meta-line {
-  width: 40px;
-  height: 2px;
-  background: var(--teal-primary);
+  width: 48px;
+  height: 3px;
+  background: var(--gradient-teal);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.3);
 }
 
 .meta-text {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 700;
   color: var(--teal-primary);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
+  font-family: var(--font-body);
 }
 
 .medical-header h2 {
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-size: clamp(2.75rem, 4.5vw, 4rem);
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
-  letter-spacing: -1px;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .header-description {
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.1875rem;
+  line-height: 1.75;
   color: var(--text-secondary);
+  font-weight: 400;
 }
 
-/* Features List */
+/* Premium Features List */
 .features-list {
   display: flex;
   flex-direction: column;
@@ -63,31 +85,52 @@
 
 .feature-medical {
   display: grid;
-  grid-template-columns: 200px 1fr 4px;
-  gap: 3rem;
-  padding: 3rem;
-  background: rgba(19, 20, 26, 0.4);
-  border: 1px solid rgba(77, 184, 168, 0.1);
-  border-radius: 12px;
+  grid-template-columns: 220px 1fr 4px;
+  gap: 3.5rem;
+  padding: 3.25rem;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(13, 148, 136, 0.08);
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
 }
 
 .feature-medical::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(77, 184, 168, 0.03), transparent);
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.02), transparent 50%, rgba(94, 234, 212, 0.01));
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
+.feature-medical::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.06), transparent);
+  transition: left 0.8s ease;
+}
+
+.feature-medical:hover::after {
+  left: 100%;
+}
+
 .feature-medical:hover {
-  border-color: rgba(77, 184, 168, 0.3);
-  background: rgba(19, 20, 26, 0.6);
-  transform: translateX(8px);
+  border-color: rgba(13, 148, 136, 0.25);
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.02), #FFFFFF);
+  transform: translateX(10px);
+  box-shadow: 
+    0 8px 28px rgba(13, 148, 136, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .feature-medical:hover::before {
@@ -96,60 +139,67 @@
 
 .feature-medical.active {
   border-color: var(--teal-primary);
-  background: rgba(19, 20, 26, 0.8);
+  background: 
+    linear-gradient(135deg, rgba(13, 148, 136, 0.05), rgba(94, 234, 212, 0.02)),
+    #FFFFFF;
   box-shadow: 
-    0 0 40px rgba(77, 184, 168, 0.15),
-    inset 0 0 60px rgba(77, 184, 168, 0.03);
-  transform: translateX(12px);
+    0 12px 40px rgba(13, 148, 136, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(13, 148, 136, 0.1) inset;
+  transform: translateX(14px);
 }
 
 .feature-medical.active::before {
   opacity: 1;
 }
 
-/* Left Section */
+/* Premium Left Section */
 .feature-left {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .feature-id {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 900;
-  color: rgba(77, 184, 168, 0.3);
+  color: rgba(13, 148, 136, 0.25);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
   transition: all 0.6s ease;
+  font-family: var(--font-heading);
 }
 
 .feature-medical.active .feature-id {
   color: var(--teal-primary);
-  transform: scale(1.1);
+  transform: scale(1.12);
+  text-shadow: 0 0 30px rgba(13, 148, 136, 0.2);
 }
 
 .feature-category {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1.4;
+  letter-spacing: 1.2px;
+  line-height: 1.5;
+  font-family: var(--font-body);
 }
 
-/* Right Section */
+/* Premium Right Section */
 .feature-right {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .feature-title {
-  font-size: 1.75rem;
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.3;
   transition: color 0.4s ease;
+  letter-spacing: -0.01em;
 }
 
 .feature-medical.active .feature-title {
@@ -157,20 +207,21 @@
 }
 
 .feature-description {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   color: var(--text-secondary);
-  max-width: 700px;
+  max-width: 720px;
+  font-weight: 400;
 }
 
-/* Metrics */
+/* Premium Metrics */
 .feature-metrics {
   display: flex;
-  gap: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(77, 184, 168, 0.1);
+  gap: 3.5rem;
+  padding-top: 1.75rem;
+  border-top: 1.5px solid rgba(13, 148, 136, 0.12);
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(12px);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -182,25 +233,28 @@
 .metric-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.625rem;
 }
 
 .metric-value {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 900;
   color: var(--teal-primary);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 20px rgba(13, 148, 136, 0.15);
 }
 
 .metric-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  font-family: var(--font-body);
 }
 
-/* Indicator */
+/* Premium Indicator */
 .feature-indicator {
   position: relative;
 }
@@ -211,54 +265,21 @@
   right: 0;
   width: 4px;
   height: 0;
-  background: var(--teal-primary);
+  background: var(--gradient-teal);
   border-radius: 2px;
-  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 20px var(--teal-primary);
+  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 20px rgba(13, 148, 136, 0.5),
+    0 0 40px rgba(13, 148, 136, 0.2);
 }
 
 .feature-medical.active .indicator-line {
   height: 100%;
 }
 
-/* Progress */
+/* Progress - Hidden */
 .medical-progress {
-  position: fixed;
-  right: 4rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  z-index: 10;
-}
-
-.progress-track {
-  width: 2px;
-  height: 200px;
-  background: rgba(77, 184, 168, 0.2);
-  border-radius: 1px;
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: var(--teal-primary);
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px var(--teal-primary);
-}
-
-.progress-counter {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--teal-primary);
-  font-variant-numeric: tabular-nums;
-  writing-mode: vertical-rl;
-  letter-spacing: 2px;
+  display: none;
 }
 
 /* Responsive */
@@ -268,31 +289,27 @@
   }
 
   .feature-medical {
-    grid-template-columns: 150px 1fr 4px;
-    gap: 2rem;
-    padding: 2rem;
+    grid-template-columns: 170px 1fr 4px;
+    gap: 2.5rem;
+    padding: 2.5rem;
   }
 
   .feature-id {
-    font-size: 1.5rem;
+    font-size: 1.875rem;
   }
 
   .feature-title {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
   }
 
   .feature-metrics {
-    gap: 2rem;
-  }
-
-  .medical-progress {
-    right: 2rem;
+    gap: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .features-medical {
-    padding: 4rem 0;
+    padding: 5rem 0;
   }
 
   .medical-container {
@@ -300,13 +317,120 @@
   }
 
   .medical-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .feature-medical {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 2.25rem 1.75rem;
+  }
+
+  .feature-left {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .feature-id {
+    font-size: 2rem;
+  }
+
+  .feature-title {
+    font-size: 1.375rem;
+  }
+
+  .feature-description {
+    font-size: 1rem;
+  }
+
+  .feature-metrics {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+  }
+
+  .feature-indicator {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature-medical {
+    padding: 1.875rem 1.375rem;
+  }
+
+  .feature-metrics {
+    gap: 1.5rem;
+  }
+
+  .metric-item {
+    min-width: calc(50% - 0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-medical,
+  .feature-metrics,
+  .indicator-line {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ... (keep existing styles) ... */
+
+/* ========== RESPONSIVE FEATURES ========== */
+
+/* Extra Small (Mobile) */
+@media (max-width: 479px) {
+  .features-medical {
+    padding: 4rem 0;
+  }
+
+  .medical-container {
+    padding: 0 1rem;
+  }
+
+  .medical-header {
     margin-bottom: 3rem;
+  }
+
+  .header-meta {
+    gap: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-line {
+    width: 36px;
+    height: 2.5px;
+  }
+
+  .meta-text {
+    font-size: 0.8125rem;
+    letter-spacing: 1.2px;
+  }
+
+  .medical-header h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-description {
+    font-size: 1rem;
+  }
+
+  .features-list {
+    gap: 1.5rem;
   }
 
   .feature-medical {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
   }
 
   .feature-left {
@@ -319,6 +443,10 @@
     font-size: 1.75rem;
   }
 
+  .feature-category {
+    font-size: 0.75rem;
+  }
+
   .feature-title {
     font-size: 1.25rem;
   }
@@ -329,62 +457,75 @@
 
   .feature-metrics {
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.75rem;
+  }
+
+  .metric-item {
+    min-width: calc(50% - 0.875rem);
   }
 
   .metric-value {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
   }
 
   .feature-indicator {
     display: none;
   }
-
-  .medical-progress {
-    position: static;
-    transform: none;
-    justify-content: center;
-    margin-top: 3rem;
-  }
-
-  .progress-track {
-    width: 200px;
-    height: 2px;
-  }
-
-  .progress-bar {
-    left: 0;
-    bottom: 0;
-    height: 100%;
-    width: 0;
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .progress-counter {
-    writing-mode: horizontal-tb;
-  }
 }
 
-@media (max-width: 640px) {
-  .feature-medical {
-    padding: 1.5rem 1rem;
+/* Small (480px - 640px) */
+@media (min-width: 480px) and (max-width: 640px) {
+  .features-medical {
+    padding: 5rem 0;
   }
 
-  .feature-metrics {
-    gap: 1rem;
+  .medical-container {
+    padding: 0 1.5rem;
+  }
+
+  .feature-medical {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
   }
 
   .metric-item {
-    min-width: calc(50% - 0.5rem);
+    min-width: auto;
   }
 }
 
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .feature-medical,
-  .feature-metrics,
-  .indicator-line,
-  .progress-bar {
-    transition: none !important;
+/* Medium (641px - 1023px) */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .medical-container {
+    padding: 0 2rem;
+  }
+
+  .feature-medical {
+    grid-template-columns: 160px 1fr 4px;
+    gap: 2.5rem;
+    padding: 2.5rem 2rem;
+  }
+
+  .feature-id {
+    font-size: 1.875rem;
+  }
+
+  .feature-title {
+    font-size: 1.5rem;
+  }
+
+  .feature-metrics {
+    gap: 2.5rem;
+  }
+}
+
+/* Large (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .feature-medical {
+    grid-template-columns: 200px 1fr 4px;
+    gap: 3rem;
   }
 }
