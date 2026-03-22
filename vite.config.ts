@@ -3,13 +3,13 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: './', // 🔥 ensures relative paths so JS/CSS load correctly on Cloudflare Pages
   server: {
     port: 5173,
     open: true
   },
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
+    outDir: 'dist',   // output folder
+    assetsDir: 'assets' // JS/CSS go into assets/
   }
 })
